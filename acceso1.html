@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reset Hormonal · Área privada · Mercè Sánchez</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #2A3651;
+    --navy-deep: #1F2942;
+    --lavender: #E8E6F0;
+    --lavender-soft: #F4F2F8;
+    --cream: #FAF8F4;
+    --white: #FFFFFF;
+    --gold: #C9A961;
+    --text: #1F2942;
+    --text-muted: #6B7185;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ LOGIN SCREEN ============ */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--lavender-soft) 100%);
+    padding: 2rem;
+  }
+  .login-card {
+    background: var(--white);
+    padding: 4rem 3rem;
+    max-width: 460px;
+    width: 100%;
+    box-shadow: 0 30px 60px -20px rgba(42, 54, 81, 0.15);
+    border-top: 3px solid var(--gold);
+    text-align: center;
+  }
+  .login-card .eyebrow {
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .login-card h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  .login-card h1 em { font-style: italic; color: var(--gold); }
+  .login-card .subtitle {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+  }
+  .login-card label {
+    display: block;
+    text-align: left;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .login-card input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(42, 54, 81, 0.2);
+    background: var(--cream);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    transition: border-color 0.3s;
+  }
+  .login-card input:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .login-card button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--navy);
+    color: var(--cream);
+    border: none;
+    font-family: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .login-card button:hover { background: var(--gold); }
+  .error-msg {
+    color: #C03030;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    min-height: 1.2em;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--navy); }
+
+  /* ============ CONTENIDO ============ */
+  #contenido { display: none; }
+
+  .header-private {
+    padding: 1.5rem 6vw;
+    background: var(--white);
+    border-bottom: 1px solid rgba(42, 54, 81, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .header-private .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .header-private .logo span { color: var(--gold); font-style: italic; }
+  .header-private .logout {
+    background: transparent;
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .header-private .logout:hover {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  .program-hero {
+    padding: 5rem 6vw 3rem;
+    background: linear-gradient(180deg, var(--lavender-soft) 0%, var(--cream) 100%);
+    text-align: center;
+  }
+  .program-hero .eyebrow {
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .program-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--navy);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.05;
+  }
+  .program-hero h1 em { font-style: italic; color: var(--gold); }
+  .program-hero p {
+    color: var(--text-muted);
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .seccion {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 6vw;
+  }
+  .seccion-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .seccion-titulo em { font-style: italic; color: var(--gold); }
+  .seccion-sub {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* Grid de vídeos */
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .video-card {
+    background: var(--white);
+    border: 1px solid rgba(42, 54, 81, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+  }
+  .video-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -15px rgba(42, 54, 81, 0.15);
+  }
+  .video-thumb {
+    aspect-ratio: 16 / 9;
+    background: var(--lavender);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    position: relative;
+    cursor: pointer;
+  }
+  .video-thumb::before {
+    content: '▶';
+    position: absolute;
+    width: 60px; height: 60px;
+    background: rgba(42, 54, 81, 0.9);
+    color: var(--cream);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    padding-left: 4px;
+  }
+  .video-info {
+    padding: 1.5rem;
+  }
+  .video-info .num {
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .video-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .video-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* Recursos */
+  .recursos-list {
+    display: grid;
+    gap: 0.8rem;
+  }
+  .recurso-item {
+    background: var(--white);
+    border: 1px solid rgba(42, 54, 81, 0.08);
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--navy);
+    transition: all 0.3s;
+  }
+  .recurso-item:hover {
+    border-color: var(--gold);
+    transform: translateX(4px);
+  }
+  .recurso-icon {
+    width: 40px; height: 40px;
+    background: var(--lavender);
+    color: var(--navy);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+  .recurso-content { flex-grow: 1; }
+  .recurso-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+  .recurso-content p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .empty-state {
+    background: var(--white);
+    border: 1px dashed rgba(42, 54, 81, 0.2);
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+  }
+
+  footer {
+    padding: 3rem 6vw 2rem;
+    background: var(--navy-deep);
+    color: rgba(250, 248, 244, 0.5);
+    text-align: center;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== PANTALLA DE LOGIN ========== -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="eyebrow">Programa Esencial</div>
+    <h1>Reset <em>Hormonal</em></h1>
+    <p class="subtitle">Área privada para alumnas del programa de 6 semanas. Introduce tu clave de acceso para entrar.</p>
+
+    <form id="login-form" onsubmit="return validateLogin(event)">
+      <label for="password">Clave de acceso</label>
+      <input type="password" id="password" name="password" placeholder="Tu clave" required autofocus />
+      <button type="submit">Entrar</button>
+      <div class="error-msg" id="error-msg"></div>
+    </form>
+
+    <a href="index.html" class="back-link">← Volver a la página principal</a>
+  </div>
+</div>
+
+<!-- ========== CONTENIDO PRIVADO ========== -->
+<div id="contenido">
+
+  <header class="header-private">
+    <div class="logo">Mercè <span>Sánchez</span></div>
+    <button class="logout" onclick="logout()">Cerrar sesión</button>
+  </header>
+
+  <section class="program-hero">
+    <div class="eyebrow">Programa Esencial · 6 semanas</div>
+    <h1>Bienvenida al <em>Reset Hormonal</em></h1>
+    <p>Aquí encontrarás las grabaciones de las 6 sesiones, los materiales descargables y todo lo que necesitas para tu proceso. Tómate tu tiempo, todo el contenido está disponible 24/7.</p>
+  </section>
+
+  <!-- SESIONES -->
+  <section class="seccion">
+    <h2 class="seccion-titulo">Las <em>6 sesiones</em></h2>
+    <p class="seccion-sub">Cada semana se publica una nueva grabación. Si te pierdes una sesión en directo, no te preocupes — aquí estará disponible.</p>
+
+    <div class="videos-grid">
+      <!-- TEMPLATE: copiar este bloque para añadir más sesiones, o sustituir el src del iframe -->
+      <div class="video-card">
+        <div class="video-thumb">Sesión 1 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Semana 01</div>
+          <h3>Tu cuerpo después de los 40</h3>
+          <p>Qué cambia hormonalmente y por qué tu cuerpo ya no responde como antes.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Sesión 2 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Semana 02</div>
+          <h3>Cortisol y estrés crónico</h3>
+          <p>La hormona del estrés y cómo desregula todo el sistema.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Sesión 3 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Semana 03</div>
+          <h3>Inflamación silenciosa</h3>
+          <p>Por qué te hinchas y cómo desinflamar de verdad.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Sesión 4 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Semana 04</div>
+          <h3>Ritmo biológico y descanso</h3>
+          <p>Cómo recuperar un sueño reparador y energía durante el día.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Sesión 5 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Semana 05</div>
+          <h3>Alimentación antiinflamatoria</h3>
+          <p>Qué comer, cuándo y por qué — sin restricciones extremas.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Sesión 6 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Semana 06</div>
+          <h3>Tu plan de regulación</h3>
+          <p>Integración de todo lo aprendido y siguientes pasos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECURSOS -->
+  <section class="seccion">
+    <h2 class="seccion-titulo">Materiales <em>descargables</em></h2>
+    <p class="seccion-sub">PDFs, guías y plantillas para acompañar cada sesión.</p>
+
+    <div class="recursos-list">
+      <div class="empty-state">
+        Aquí se irán publicando los PDFs y materiales de cada sesión.
+      </div>
+
+      <!-- TEMPLATE: descomenta y duplica este bloque cuando subas PDFs al repo
+      <a class="recurso-item" href="pdfs/guia-semana-1.pdf" target="_blank">
+        <div class="recurso-icon">PDF</div>
+        <div class="recurso-content">
+          <h4>Guía Semana 1 — Tu cuerpo después de los 40</h4>
+          <p>Resumen, ejercicios y plantilla de seguimiento</p>
+        </div>
+      </a>
+      -->
+    </div>
+  </section>
+
+  <footer>
+    Mercè Sánchez · Salud Femenina +40 · Área privada Reset Hormonal
+  </footer>
+
+</div>
+
+<script>
+  // === CONFIG ===
+  const PASSWORD = "Merce01";
+  const STORAGE_KEY = "merce_p1_access";
+
+  // Comprobar si ya está autenticada en esta sesión
+  if (sessionStorage.getItem(STORAGE_KEY) === "ok") {
+    showContent();
+  }
+
+  function validateLogin(e) {
+    e.preventDefault();
+    const input = document.getElementById('password').value;
+    const errorMsg = document.getElementById('error-msg');
+    if (input === PASSWORD) {
+      sessionStorage.setItem(STORAGE_KEY, "ok");
+      showContent();
+    } else {
+      errorMsg.textContent = "Clave incorrecta. Inténtalo de nuevo.";
+      document.getElementById('password').value = "";
+    }
+    return false;
+  }
+
+  function showContent() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('contenido').style.display = 'block';
+  }
+
+  function logout() {
+    sessionStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+</script>
+
+</body>
+</html>

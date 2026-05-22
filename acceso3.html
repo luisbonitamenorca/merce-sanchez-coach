@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Programa Mentora · Área privada · Mercè Sánchez</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #2A3651;
+    --navy-deep: #1F2942;
+    --lavender: #E8E6F0;
+    --lavender-soft: #F4F2F8;
+    --cream: #FAF8F4;
+    --white: #FFFFFF;
+    --gold: #C9A961;
+    --text: #1F2942;
+    --text-muted: #6B7185;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ LOGIN SCREEN ============ */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--lavender-soft) 100%);
+    padding: 2rem;
+  }
+  .login-card {
+    background: var(--white);
+    padding: 4rem 3rem;
+    max-width: 460px;
+    width: 100%;
+    box-shadow: 0 30px 60px -20px rgba(42, 54, 81, 0.15);
+    border-top: 3px solid var(--gold);
+    text-align: center;
+  }
+  .login-card .eyebrow {
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .login-card h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  .login-card h1 em { font-style: italic; color: var(--gold); }
+  .login-card .subtitle {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+  }
+  .login-card label {
+    display: block;
+    text-align: left;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .login-card input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(42, 54, 81, 0.2);
+    background: var(--cream);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    transition: border-color 0.3s;
+  }
+  .login-card input:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .login-card button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--navy);
+    color: var(--cream);
+    border: none;
+    font-family: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .login-card button:hover { background: var(--gold); }
+  .error-msg {
+    color: #C03030;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    min-height: 1.2em;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--navy); }
+
+  /* ============ CONTENIDO ============ */
+  #contenido { display: none; }
+
+  .header-private {
+    padding: 1.5rem 6vw;
+    background: var(--white);
+    border-bottom: 1px solid rgba(42, 54, 81, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .header-private .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .header-private .logo span { color: var(--gold); font-style: italic; }
+  .header-private .logout {
+    background: transparent;
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .header-private .logout:hover {
+    background: var(--navy);
+    color: var(--cream);
+  }
+
+  .program-hero {
+    padding: 5rem 6vw 3rem;
+    background: linear-gradient(180deg, var(--lavender-soft) 0%, var(--cream) 100%);
+    text-align: center;
+  }
+  .program-hero .eyebrow {
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .program-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--navy);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    line-height: 1.05;
+  }
+  .program-hero h1 em { font-style: italic; color: var(--gold); }
+  .program-hero p {
+    color: var(--text-muted);
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .seccion {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 6vw;
+  }
+  .seccion-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .seccion-titulo em { font-style: italic; color: var(--gold); }
+  .seccion-sub {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* Grid de vídeos */
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .video-card {
+    background: var(--white);
+    border: 1px solid rgba(42, 54, 81, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+  }
+  .video-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -15px rgba(42, 54, 81, 0.15);
+  }
+  .video-thumb {
+    aspect-ratio: 16 / 9;
+    background: var(--lavender);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    position: relative;
+    cursor: pointer;
+  }
+  .video-thumb::before {
+    content: '▶';
+    position: absolute;
+    width: 60px; height: 60px;
+    background: rgba(42, 54, 81, 0.9);
+    color: var(--cream);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    padding-left: 4px;
+  }
+  .video-info {
+    padding: 1.5rem;
+  }
+  .video-info .num {
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .video-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .video-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* Recursos */
+  .recursos-list {
+    display: grid;
+    gap: 0.8rem;
+  }
+  .recurso-item {
+    background: var(--white);
+    border: 1px solid rgba(42, 54, 81, 0.08);
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--navy);
+    transition: all 0.3s;
+  }
+  .recurso-item:hover {
+    border-color: var(--gold);
+    transform: translateX(4px);
+  }
+  .recurso-icon {
+    width: 40px; height: 40px;
+    background: var(--lavender);
+    color: var(--navy);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+  .recurso-content { flex-grow: 1; }
+  .recurso-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+  .recurso-content p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .empty-state {
+    background: var(--white);
+    border: 1px dashed rgba(42, 54, 81, 0.2);
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+  }
+
+  footer {
+    padding: 3rem 6vw 2rem;
+    background: var(--navy-deep);
+    color: rgba(250, 248, 244, 0.5);
+    text-align: center;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== PANTALLA DE LOGIN ========== -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="eyebrow">Formación Profesional</div>
+    <h1>Programa <em>Mentora</em></h1>
+    <p class="subtitle">Área privada para alumnas en formación de coach. Introduce tu clave de acceso para entrar.</p>
+
+    <form id="login-form" onsubmit="return validateLogin(event)">
+      <label for="password">Clave de acceso</label>
+      <input type="password" id="password" name="password" placeholder="Tu clave" required autofocus />
+      <button type="submit">Entrar</button>
+      <div class="error-msg" id="error-msg"></div>
+    </form>
+
+    <a href="index.html" class="back-link">← Volver a la página principal</a>
+  </div>
+</div>
+
+<!-- ========== CONTENIDO PRIVADO ========== -->
+<div id="contenido">
+
+  <header class="header-private">
+    <div class="logo">Mercè <span>Sánchez</span></div>
+    <button class="logout" onclick="logout()">Cerrar sesión</button>
+  </header>
+
+  <section class="program-hero">
+    <div class="eyebrow">Formación Profesional</div>
+    <h1>Bienvenida al <em>Programa Mentora</em></h1>
+    <p>Tu camino para convertirte en coach especializada en salud femenina +40. Aquí tienes los módulos de formación, los materiales profesionales y todos los recursos para tu certificación.</p>
+  </section>
+
+  <!-- MÓDULOS DE FORMACIÓN -->
+  <section class="seccion">
+    <h2 class="seccion-titulo">Módulos de <em>formación</em></h2>
+    <p class="seccion-sub">El plan completo de la metodología Mercè Sánchez. Cada módulo se desbloquea progresivamente durante tu formación.</p>
+
+    <div class="videos-grid">
+      <div class="video-card">
+        <div class="video-thumb">Módulo 1 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Módulo 01</div>
+          <h3>Fundamentos hormonales</h3>
+          <p>Bases científicas: cortisol, estrógenos, tiroides y eje HHS.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Módulo 2 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Módulo 02</div>
+          <h3>Diagnóstico funcional</h3>
+          <p>Cómo identificar el patrón de cada clienta sin necesidad de analíticas.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Módulo 3 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Módulo 03</div>
+          <h3>Protocolos de regulación</h3>
+          <p>La metodología completa paso a paso, según el caso.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Módulo 4 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Módulo 04</div>
+          <h3>Acompañamiento y comunicación</h3>
+          <p>Cómo guiar a tus clientas con empatía y resultados.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Módulo 5 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Módulo 05</div>
+          <h3>Casos clínicos</h3>
+          <p>Análisis en profundidad de casos reales.</p>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">Módulo 6 — Pendiente</div>
+        <div class="video-info">
+          <div class="num">Módulo 06</div>
+          <h3>Tu práctica profesional</h3>
+          <p>Cómo construir tu negocio como coach especializada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATERIALES PROFESIONALES -->
+  <section class="seccion">
+    <h2 class="seccion-titulo">Materiales <em>profesionales</em></h2>
+    <p class="seccion-sub">Plantillas, protocolos y materiales que podrás usar con tus propias clientas.</p>
+
+    <div class="recursos-list">
+      <div class="empty-state">
+        Aquí se irán publicando los materiales profesionales del programa.
+      </div>
+    </div>
+  </section>
+
+  <!-- COMUNIDAD MENTORAS -->
+  <section class="seccion">
+    <h2 class="seccion-titulo">Red de <em>Mentoras</em></h2>
+    <p class="seccion-sub">Espacio privado para conectar con otras alumnas en formación y coaches certificadas.</p>
+
+    <div class="recursos-list">
+      <a class="recurso-item" href="#" onclick="alert('Mercè: pega aquí el enlace de invitación al grupo de WhatsApp de Mentoras'); return false;">
+        <div class="recurso-icon">WA</div>
+        <div class="recurso-content">
+          <h4>Grupo privado de Mentoras</h4>
+          <p>Comunidad cerrada de formación y supervisión</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Mercè Sánchez · Salud Femenina +40 · Área privada Programa Mentora
+  </footer>
+
+</div>
+
+<script>
+  // === CONFIG ===
+  const PASSWORD = "Merce03";
+  const STORAGE_KEY = "merce_p3_access";
+
+  // Comprobar si ya está autenticada en esta sesión
+  if (sessionStorage.getItem(STORAGE_KEY) === "ok") {
+    showContent();
+  }
+
+  function validateLogin(e) {
+    e.preventDefault();
+    const input = document.getElementById('password').value;
+    const errorMsg = document.getElementById('error-msg');
+    if (input === PASSWORD) {
+      sessionStorage.setItem(STORAGE_KEY, "ok");
+      showContent();
+    } else {
+      errorMsg.textContent = "Clave incorrecta. Inténtalo de nuevo.";
+      document.getElementById('password').value = "";
+    }
+    return false;
+  }
+
+  function showContent() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('contenido').style.display = 'block';
+  }
+
+  function logout() {
+    sessionStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+</script>
+
+</body>
+</html>
